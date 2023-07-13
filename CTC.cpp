@@ -144,47 +144,37 @@ CTC_MostFrequentUINT64(
 	IN UINT16  Count 
 	)
 {
-	UINT16* OccuranceArray = ( UINT16* )HeapAlloc( GetProcessHeap( ), NULL, Count * sizeof( UINT16 ) );
+	UINT64 Result       = NULL;
+	UINT16 OccuranceBar = NULL;
 
-	for ( UINT32 i = NULL; i < Count; i++ )
+	for ( UINT16 i = NULL; i < Count; i++ )
 	{
-		UINT16 Occurances = NULL;
+		UINT16 CurrentOccurances = NULL;
 
-		for ( UINT32 j = NULL; j < Count; j++ )
+		for ( UINT16 j = NULL; j < Count; j++ )
 		{
 			if ( &Values[ j ] == &Values[ i ] ) {
 				continue;
 			}
 
-			if ( Values[ i ] == Values[ j ] ) {
-				Occurances++;
+			if ( Values[ j ] == Values[ i ] ) {
+				CurrentOccurances++;
+			}
+
+			if ( CurrentOccurances > ( Count >> 1 ) ) {
+				Result = Values[ i ];
+				return Result;
 			}
 		}
 
-		if ( Occurances > ( Count / 2 ) ) {
-
-			HeapFree( GetProcessHeap( ), NULL, OccuranceArray );
-			
-			return Values[ i ];
-		}
-
-		OccuranceArray[ i ] = Occurances;
-	}
-
-	UINT16 OccuranceBar = NULL;
-	UINT64 CurrentValue = NULL;
-
-	for ( UINT32 i = NULL; i < Count; i++ )
-	{
-		if ( OccuranceArray[ i ] > OccuranceBar ) {
-			OccuranceBar = OccuranceArray[ i ];
-			CurrentValue = Values        [ i ];
+		if ( CurrentOccurances > OccuranceBar ) 
+		{
+			OccuranceBar = CurrentOccurances;
+			Result = Values[ i ];
 		}
 	}
 
-	HeapFree( GetProcessHeap( ), NULL, OccuranceArray );
-
-	return CurrentValue;
+	return Result;
 }
 
 VOID
@@ -246,6 +236,7 @@ CTC_TransmitData_Internal(
 	CTC_SetLinesToUINT64( CTC_TRANSMIT_END_MAGIC );
 }
 
+#include <cstdio>
 DECLSPEC_NOINLINE
 VOID
 CTC_ReceiveData_Internal( 
