@@ -122,7 +122,7 @@ CTC_SetLinesToUINT64(
 	IN UINT64 Value 
 	)
 {
-	for ( UINT32 n = CTC_TRANSMIT_FLUSH_FREQUENCY; n--; )
+	for ( UINT32 n = CTC_TRANSMIT_FLUSH_COUNT; n--; )
 	{
 		for ( UINT64 i = NULL; i < 64; i++ ) 
 		{
