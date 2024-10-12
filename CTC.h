@@ -21,7 +21,7 @@
 #define CTC_TRANSMIT_START_MAGIC 0xBEEFC0DE00000001
 
 //
-// The magic numbe through which the end of a transmission is acknowledged
+// The magic number through which the end of a transmission is acknowledged
 //
 #define CTC_TRANSMIT_END_MAGIC 0xBEEFC0DE00000002
 
