@@ -13,7 +13,7 @@
 //
 // The amount of times a cache line is flushed repeatedly. The higher, the slower and more accurate.
 //
-#define CTC_TRANSMIT_FLUSH_FREQUENCY 250000
+#define CTC_TRANSMIT_FLUSH_COUNT 250000
 
 //
 // The magic number through which the start of a transmission is acknowledged
